@@ -7,3 +7,7 @@ $app['db.connection'] = function () {
 
     return $connection;
 };
+
+$app['lists.data.access'] = function ($app) {
+    return new Groceries\Lists\RelationalDataAccess($app['db.connection']);
+};
