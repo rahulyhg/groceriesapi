@@ -7,3 +7,11 @@ $app['db.connection'] = function () {
 
     return $connection;
 };
+
+$app['lists.data.access'] = function ($app) {
+    return new Groceries\Lists\RelationalDataAccess($app['db.connection']);
+};
+
+$app['lists.resource.handler.v1'] = function ($app) {
+    return new Groceries\Api\V1\ListsResourceHandler($app['lists.data.access']);
+};
