@@ -8,6 +8,10 @@ $app['db.connection'] = function () {
     return $connection;
 };
 
+$app['request.body.decoder'] = function ($app) {
+    return new Groceries\Api\RequestBodyDecoder($app['serializer']);
+};
+
 $app['lists.data.access'] = function ($app) {
     return new Groceries\Lists\RelationalDataAccess($app['db.connection']);
 };
