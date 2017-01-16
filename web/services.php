@@ -15,3 +15,7 @@ $app['lists.data.access'] = function ($app) {
 $app['lists.resource.handler.v1'] = function ($app) {
     return new Groceries\Api\V1\ListsResourceHandler($app['lists.data.access']);
 };
+
+$app['items.data.access'] = function ($app) {
+    return new Groceries\Items\RelationalDataAccess($app['db.connection']);
+};
