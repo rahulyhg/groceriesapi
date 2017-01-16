@@ -12,4 +12,18 @@ class RelationalDataAccess implements DataAccess
     {
         $this->connection = $connection;
     }
+
+    public function getItemsByList(string $list) : array
+    {
+        $query = '
+            SELECT LOWER(HEX(id)) AS id, description, price, LOWER(HEX(list)) AS list
+            FROM items
+            WHERE list=UNHEX(:list)
+        ';
+
+        $statement = $this->connection->prepare($query);
+        $statement->execute(['list' => $list]);
+
+        return $statement->fetchAll();
+    }
 }
