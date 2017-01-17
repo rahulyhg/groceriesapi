@@ -16,14 +16,20 @@ class RequestBodyDecoder
 
     public function __invoke(Request $request)
     {
+        $content = $request->getContent();
+
+        if (! $content) {
+            return;
+        }
+
         $data = null;
 
         if ($request->headers->get('Content-Type') === 'application/json') {
-            $data = $this->serializer->decode($request->getContent(), 'json');
+            $data = $this->serializer->decode($content, 'json');
         }
 
         if ($request->headers->get('Content-Type') === 'application/xml') {
-            $data = $this->serializer->decode($request->getContent(), 'xml');
+            $data = $this->serializer->decode($content, 'xml');
         }
 
         if (is_array($data)) {
