@@ -13,6 +13,21 @@ class RelationalDataAccess implements DataAccess
         $this->connection = $connection;
     }
 
+    public function getListByID(string $id) : array
+    {
+        $query = '
+            SELECT LOWER(HEX(id)) AS id, date
+            FROM lists
+            WHERE id=UNHEX(:id)
+        ';
+
+        $statement = $this->connection->prepare($query);
+        $statement->execute(['id' => $id]);
+
+        $data = $statement->fetch();
+        return $data ? $data : [];
+    }
+
     public function getListsByMonth(string $month, string $year) : array
     {
         $query = '
