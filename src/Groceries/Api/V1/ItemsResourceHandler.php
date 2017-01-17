@@ -41,6 +41,11 @@ class ItemsResourceHandler
 
     public function delete(string $id)
     {
+        if (! $this->dataAccess->getItemByID($id)) {
+            return new JsonResponse(['error' => 'item not found'], 404);
+        }
+
+        $this->dataAccess->deleteItem($id);
         return new JsonResponse();
     }
 }
