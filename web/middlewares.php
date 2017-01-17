@@ -10,3 +10,5 @@ $app->get('/v1/lists/{list}/items', 'items.resource.handler.v1:get');
 
 $app->post('/v1/lists', 'lists.resource.handler.v1:post');
 $app->post('/v1/items', 'items.resource.handler.v1:post');
+
+$app->delete('/v1/lists/{id}', 'lists.resource.handler.v1:delete');
