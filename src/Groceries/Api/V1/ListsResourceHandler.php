@@ -6,14 +6,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Groceries\Lists\DataAccess;
+use Groceries\Api\UuidGenerator;
 
 class ListsResourceHandler
 {
     private $dataAccess;
 
-    public function __construct(DataAccess $dataAccess)
+    private $uuidGenerator;
+
+    public function __construct(DataAccess $dataAccess, UuidGenerator $uuidGenerator)
     {
         $this->dataAccess = $dataAccess;
+        $this->uuidGenerator = $uuidGenerator;
     }
 
     public function get(Request $request)
