@@ -29,5 +29,5 @@ $app['items.data.access'] = function ($app) {
 };
 
 $app['items.resource.handler.v1'] = function ($app) {
-    return new Groceries\Api\V1\ItemsResourceHandler($app['items.data.access']);
+    return new Groceries\Api\V1\ItemsResourceHandler($app['items.data.access'], $app['uuid.generator']);
 };

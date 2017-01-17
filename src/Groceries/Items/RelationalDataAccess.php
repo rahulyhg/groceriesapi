@@ -26,4 +26,15 @@ class RelationalDataAccess implements DataAccess
 
         return $statement->fetchAll();
     }
+
+    public function createItem(array $data)
+    {
+        $query = '
+            INSERT INTO items (id, description, price, list)
+            VALUES (UNHEX(:id), :description, :price, UNHEX(:list))
+        ';
+
+        $statement = $this->connection->prepare($query);
+        $statement->execute($data);
+    }
 }
