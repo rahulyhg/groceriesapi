@@ -46,4 +46,9 @@ class ListsResourceHandler
 
         return new JsonResponse($data, 201);
     }
+
+    public function delete(string $id)
+    {
+        return new JsonResponse();
+    }
 }
