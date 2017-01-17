@@ -8,7 +8,6 @@ class UuidGenerator
 {
     public function generate() : string
     {
-        $uuid = Uuid::uuid4();
-        return $uuid->getHex();
+        return Uuid::uuid4()->getHex();
     }
 }
