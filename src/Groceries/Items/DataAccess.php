@@ -9,4 +9,6 @@ interface DataAccess
     public function getItemsByList(string $list) : array;
 
     public function createItem(array $data);
+
+    public function deleteItem(string $id);
 }
