@@ -19,4 +19,9 @@ class ItemsResourceHandler
         $data = $this->dataAccess->getItemsByList($list);
         return new JsonResponse($data);
     }
+
+    public function post()
+    {
+        return new JsonResponse();
+    }
 }
