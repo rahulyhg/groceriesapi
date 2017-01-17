@@ -2,6 +2,7 @@
 
 namespace Groceries\Api\V1;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Groceries\Items\DataAccess;
@@ -24,8 +25,17 @@ class ItemsResourceHandler
         return new JsonResponse($data);
     }
 
-    public function post()
+    public function post(Request $request)
     {
-        return new JsonResponse();
+        $data = [
+            'description' => filter_var($request->request->get('description'), FILTER_SANITIZE_STRING),
+            'price'       => filter_var($request->request->get('price'      ), FILTER_SANITIZE_STRING),
+            'list'        => filter_var($request->request->get('list'       ), FILTER_SANITIZE_STRING),
+        ];
+
+        $data['id'] = $this->uuidGenerator->generate();
+        $this->dataAccess->createItem($data);
+
+        return new JsonResponse($data, 201);
     }
 }
