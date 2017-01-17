@@ -54,4 +54,15 @@ class RelationalDataAccess implements DataAccess
         $statement = $this->connection->prepare($query);
         $statement->execute($data);
     }
+
+    public function deleteList(string $id)
+    {
+        $query = '
+            DELETE FROM lists
+            WHERE id=UNHEX(:id)
+        ';
+
+        $statement = $this->connection->prepare($query);
+        $statement->execute(['id' => $id]);
+    }
 }

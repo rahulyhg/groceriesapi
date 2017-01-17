@@ -9,4 +9,6 @@ interface DataAccess
     public function getListsByMonth(string $month, string $year) : array;
 
     public function createList(array $data);
+
+    public function deleteList(string $id);
 }
