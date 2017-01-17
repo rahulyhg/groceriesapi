@@ -28,4 +28,10 @@ class ListsResourceHandler
         $data = $this->dataAccess->getListsByMonth($month, $year);
         return new JsonResponse($data);
     }
+
+    public function post(Request $request)
+    {
+        $date = filter_var($request->request->get('date'), FILTER_SANITIZE_STRING);
+        return new JsonResponse();
+    }
 }
