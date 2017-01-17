@@ -6,14 +6,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Groceries\Lists\DataAccess;
+use Groceries\Api\UuidGenerator;
 
 class ListsResourceHandler
 {
     private $dataAccess;
 
-    public function __construct(DataAccess $dataAccess)
+    private $uuidGenerator;
+
+    public function __construct(DataAccess $dataAccess, UuidGenerator $uuidGenerator)
     {
         $this->dataAccess = $dataAccess;
+        $this->uuidGenerator = $uuidGenerator;
     }
 
     public function get(Request $request)
@@ -27,5 +31,19 @@ class ListsResourceHandler
 
         $data = $this->dataAccess->getListsByMonth($month, $year);
         return new JsonResponse($data);
+    }
+
+    public function post(Request $request)
+    {
+        $date = filter_var($request->request->get('date'), FILTER_SANITIZE_STRING);
+
+        if (! preg_match('#^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$#', $date)) {
+            return new JsonResponse(['error' => 'requires date format YYYY-MM-DD'], 400);
+        }
+
+        $data = ['id' => $this->uuidGenerator->generate(), 'date' => $date];
+        $this->dataAccess->createList($data);
+
+        return new JsonResponse($data, 201);
     }
 }

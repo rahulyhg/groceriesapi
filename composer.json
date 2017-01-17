@@ -1,7 +1,8 @@
 {
     "require": {
         "silex/silex": "^2.0",
-        "symfony/serializer": "^3.2"
+        "symfony/serializer": "^3.2",
+        "ramsey/uuid": "^3.5"
     },
     "autoload": {
         "psr-0": {"": "src"}
