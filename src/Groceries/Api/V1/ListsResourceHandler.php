@@ -49,6 +49,11 @@ class ListsResourceHandler
 
     public function delete(string $id)
     {
+        if (! $this->dataAccess->getListByID($id)) {
+            return new JsonResponse(['error' => 'list not found'], 404);
+        }
+
+        $this->dataAccess->deleteList($id);
         return new JsonResponse();
     }
 }
