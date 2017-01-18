@@ -5,7 +5,7 @@ namespace Groceries\Api;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Serializer;
 
-class RequestBodyDecoder
+class RequestDecoding
 {
     private $serializer;
 

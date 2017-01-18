@@ -29,8 +29,8 @@ $app['uuid.generator'] = function ($app) {
     return new Groceries\Api\UuidGenerator();
 };
 
-$app['request.body.decoder'] = function ($app) {
-    return new Groceries\Api\RequestBodyDecoder($app['serializer']);
+$app['request.decoding'] = function ($app) {
+    return new Groceries\Api\RequestDecoding($app['serializer']);
 };
 
 $app['request.authentication'] = function ($app) {
