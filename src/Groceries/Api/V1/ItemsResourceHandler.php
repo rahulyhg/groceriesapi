@@ -19,8 +19,14 @@ class ItemsResourceHandler
         $this->uuidGenerator = $uuidGenerator;
     }
 
-    public function get(string $list)
+    public function get(Request $request)
     {
+        $list = filter_var($request->query->get('list'), FILTER_SANITIZE_STRING);
+
+        if (! $list) {
+            return new JsonResponse(['error' => 'requires a list parameter'], 400);
+        }
+
         $data = $this->dataAccess->getItemsByList($list);
         return new JsonResponse($data);
     }

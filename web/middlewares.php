@@ -7,7 +7,7 @@ $app->before('request.body.decoder');
 
 $app->get('/v1/token', 'token.resource.handler.v1:get');
 $app->get('/v1/lists', 'lists.resource.handler.v1:get')->after('request.authenticator');
-$app->get('/v1/lists/{list}/items', 'items.resource.handler.v1:get')->after('request.authenticator');
+$app->get('/v1/items', 'items.resource.handler.v1:get')->after('request.authenticator');
 
 $app->post('/v1/lists', 'lists.resource.handler.v1:post')->after('request.authenticator');
 $app->post('/v1/items', 'items.resource.handler.v1:post')->after('request.authenticator');
