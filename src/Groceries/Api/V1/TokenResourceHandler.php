@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Groceries\Credentials\DataAccess;
 use Groceries\Api\TokenGenerator;
 
-class TokensResourceHandler
+class TokenResourceHandler
 {
     private $dataAccess;
     private $tokenGenerator;

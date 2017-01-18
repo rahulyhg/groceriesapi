@@ -21,7 +21,7 @@ $app['jwt.builder'] = function ($app) {
 };
 
 $app['token.generator'] = function ($app) {
-    return new Groceries\Api\TokenGenerator($app['jwt.builder'], $app['jwt.signer'], 
+    return new Groceries\Api\TokenGenerator($app['jwt.builder'], $app['jwt.signer'],
                                             getenv('JWT_KEY'), getenv('JWT_ISSUER'), getenv('JWT_AUDIENCE'));
 };
 
@@ -49,8 +49,8 @@ $app['items.data.access'] = function ($app) {
     return new Groceries\Items\RelationalDataAccess($app['db.connection']);
 };
 
-$app['tokens.resource.handler.v1'] = function ($app) {
-    return new Groceries\Api\V1\TokensResourceHandler($app['credentials.data.access'], $app['token.generator']);
+$app['token.resource.handler.v1'] = function ($app) {
+    return new Groceries\Api\V1\TokenResourceHandler($app['credentials.data.access'], $app['token.generator']);
 };
 
 $app['lists.resource.handler.v1'] = function ($app) {
