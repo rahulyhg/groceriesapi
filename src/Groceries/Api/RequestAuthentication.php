@@ -12,7 +12,7 @@ use Lcobucci\JWT\ValidationData;
 
 use Exception;
 
-class RequestAuthenticator
+class RequestAuthentication
 {
     public $parser;
     public $signer;
