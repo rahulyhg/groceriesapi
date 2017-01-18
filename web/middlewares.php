@@ -4,6 +4,7 @@ $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 $app->register(new Silex\Provider\SerializerServiceProvider());
 
 $app->before('request.decoding');
+$app->after('response.encoding');
 
 $app->get('/v1/token', 'token.resource.handler.v1:get');
 $app->get('/v1/lists', 'lists.resource.handler.v1:get')->before('request.authentication');
