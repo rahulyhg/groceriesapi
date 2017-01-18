@@ -18,4 +18,18 @@ class TokensResourceHandler
         $this->dataAccess = $dataAccess;
         $this->tokenGenerator = $tokenGenerator;
     }
+
+    public function get(Request $request)
+    {
+        $username = filter_var($request->headers->get('username'), FILTER_SANITIZE_STRING);
+        $password = filter_var($request->headers->get('password'), FILTER_SANITIZE_STRING);
+
+        $credentials = $this->dataAccess->getCredentialsByUsername($username);
+
+        if ($credentials && password_verify($password, $credentials['password'])) {
+            return new JsonResponse(['token' => $this->tokenGenerator->generate($credentials['id'])]);
+        }
+
+        return new JsonResponse(['error' => 'invalid credentials'], 400);
+    }
 }
