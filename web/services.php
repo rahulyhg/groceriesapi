@@ -33,6 +33,10 @@ $app['request.body.decoder'] = function ($app) {
     return new Groceries\Api\RequestBodyDecoder($app['serializer']);
 };
 
+$app['request.authenticator'] = function ($app) {
+    return new Groceries\Api\RequestAuthenticator($app['jwt.parser'], $app['jwt.signer'], getenv('JWT_KEY'));
+};
+
 $app['credentials.data.access'] = function ($app) {
     return new Groceries\Credentials\RelationalDataAccess($app['db.connection']);
 };
