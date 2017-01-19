@@ -3,7 +3,7 @@
 namespace Groceries\Api\V1;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 use Groceries\Items\DataAccess;
 use Groceries\Api\UuidGenerator;
@@ -21,14 +21,17 @@ class ItemsResourceHandler
 
     public function get(Request $request)
     {
+        $status = 400;
+        $data = ['error' => 'requires a list parameter'];
+
         $list = filter_var($request->query->get('list'), FILTER_SANITIZE_STRING);
 
-        if (! $list) {
-            return new JsonResponse(['error' => 'requires a list parameter'], 400);
+        if ($list) {
+            $status = 200;
+            $data = $this->dataAccess->getItemsByList($list);
         }
 
-        $data = $this->dataAccess->getItemsByList($list);
-        return new JsonResponse($data);
+        return new Response(serialize($data));
     }
 
     public function post(Request $request)
@@ -42,16 +45,21 @@ class ItemsResourceHandler
         $data['id'] = $this->uuidGenerator->generate();
         $this->dataAccess->createItem($data);
 
-        return new JsonResponse($data, 201);
+        return new Response(serialize($data), 201);
     }
 
     public function delete(string $id)
     {
-        if (! $this->dataAccess->getItemByID($id)) {
-            return new JsonResponse(['error' => 'item not found'], 404);
+        $status = 404;
+        $data = ['error' => 'item not found'];
+
+        if ($this->dataAccess->getItemByID($id)) {
+            $this->dataAccess->deleteItem($id);
+
+            $status = 200;
+            $data = ['message' => 'item deleted'];
         }
 
-        $this->dataAccess->deleteItem($id);
-        return new JsonResponse();
+        return new Response(serialize($data), $status);
     }
 }
