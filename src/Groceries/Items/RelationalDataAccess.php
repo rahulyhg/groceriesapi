@@ -31,7 +31,7 @@ class RelationalDataAccess implements DataAccess
     public function getItemsByList(string $list) : array
     {
         $query = '
-            SELECT LOWER(HEX(id)) AS id, description, price, LOWER(HEX(list)) AS list
+            SELECT LOWER(HEX(id)) AS id, description, price
             FROM items
             WHERE list=UNHEX(:list)
         ';
