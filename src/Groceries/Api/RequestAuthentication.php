@@ -3,7 +3,7 @@
 namespace Groceries\Api;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Parser;
@@ -60,6 +60,6 @@ class RequestAuthentication
         $status = 401;
         $data = ['error' => 'invalid authorization token'];
 
-        return new JsonResponse($data, $status);
+        return new Response(serialize($data), $status);
     }
 }
