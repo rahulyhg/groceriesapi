@@ -19,7 +19,7 @@ class ResponseEncoding
     {
         $content = unserialize($response->getContent());
 
-        if (! $content) {
+        if (! is_array($content) && ! $content) {
             return;
         }
 
