@@ -3,8 +3,12 @@
 $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 $app->register(new Silex\Provider\SerializerServiceProvider());
 
+$app->after('access.control');
+
 $app->before('request.decoding');
 $app->after('response.encoding');
+
+$app->options('{anything}', 'options.resource.handler.v1:options')->assert('anything', '.*');
 
 $app->get('/v1/token', 'token.resource.handler.v1:get');
 $app->get('/v1/lists', 'lists.resource.handler.v1:get')->before('request.authentication');

@@ -29,6 +29,10 @@ $app['uuid.generator'] = function ($app) {
     return new Groceries\Api\UuidGenerator();
 };
 
+$app['access.control'] = function ($app) {
+    return new Groceries\Api\AccessControl();
+};
+
 $app['request.decoding'] = function ($app) {
     return new Groceries\Api\RequestDecoding($app['serializer']);
 };
@@ -51,6 +55,10 @@ $app['lists.data.access'] = function ($app) {
 
 $app['items.data.access'] = function ($app) {
     return new Groceries\Items\RelationalDataAccess($app['db.connection']);
+};
+
+$app['options.resource.handler.v1'] = function ($app) {
+    return new Groceries\Api\V1\OptionsResourceHandler();
 };
 
 $app['token.resource.handler.v1'] = function ($app) {
