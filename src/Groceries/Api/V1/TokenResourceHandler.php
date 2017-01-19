@@ -24,8 +24,8 @@ class TokenResourceHandler
         $status = 400;
         $data = ['error' => 'invalid credentials'];
 
-        $username = filter_var($request->headers->get('username'), FILTER_SANITIZE_STRING);
-        $password = filter_var($request->headers->get('password'), FILTER_SANITIZE_STRING);
+        $username = filter_var($request->server->get('PHP_AUTH_USER'), FILTER_SANITIZE_STRING);
+        $password = filter_var($request->server->get('PHP_AUTH_PW'  ), FILTER_SANITIZE_STRING);
 
         $credentials = $this->dataAccess->getCredentialsByUsername($username);
 
