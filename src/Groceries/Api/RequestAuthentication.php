@@ -27,6 +27,8 @@ class RequestAuthentication
 
     public function __invoke(Request $request)
     {
+        /* The JWT parser can raise an exception.
+         * In this case the request must also be rejected. */
         try {
             $token = $this->parser->parse($request->headers->get('Authorization'));
 
