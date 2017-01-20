@@ -19,6 +19,11 @@ class ResponseEncoding
     {
         $content = unserialize($response->getContent());
 
+        /* If the unserialize function return an empty array we are still
+         * interested in send this info in the format that is acceptable to the client.
+         *
+         * In PHP an empty array is considered FALSE:
+         * http://php.net/manual/en/language.types.boolean.php */
         if (! is_array($content) && ! $content) {
             return;
         }
