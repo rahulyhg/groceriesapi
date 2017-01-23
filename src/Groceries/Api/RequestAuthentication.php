@@ -42,22 +42,22 @@ class RequestAuthentication
         }
     }
 
-    public function authorize(Token $token)
+    private function authorize(Token $token)
     {
         return $this->verify($token) && $this->validate($token);
     }
 
-    public function verify(Token $token)
+    private function verify(Token $token)
     {
         return $token->verify($this->signer, $this->signature);
     }
 
-    public function validate(Token $token)
+    private function validate(Token $token)
     {
         return $token->validate(new ValidationData(time()));
     }
 
-    public function unAuthorized()
+    private function unAuthorized()
     {
         $status = 401;
         $data = ['error' => 'invalid authorization token'];
