@@ -72,4 +72,24 @@ class RelationalDataAccessTest extends TestCase
 
         $this->assertEquals($expected, $data);
     }
+
+    function test_delete_list()
+    {
+        $expected = ['id' => '09497bcf4d8240ccb966b89fe8009bfc'];
+
+        $connection = $this->createMock(PDO::class);
+        $statement  = $this->createMock(PDOStatement::class);
+
+        $connection
+                ->method('prepare')
+                ->willReturn($statement);
+
+        $statement
+                ->expects($this->once())
+                ->method('execute')
+                ->with($this->equalTo($expected));
+
+        $dataAccess = new RelationalDataAccess($connection);
+        $dataAccess->deleteList($expected['id']);
+    }
 }
