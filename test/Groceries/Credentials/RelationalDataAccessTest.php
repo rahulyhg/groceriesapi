@@ -6,7 +6,7 @@ use PDO;
 use PDOStatement;
 use PHPUnit\Framework\TestCase;
 
-class RelatinalDataAccessTest extends TestCase
+class RelationalDataAccessTest extends TestCase
 {
     function test_return_credentials_by_username()
     {
