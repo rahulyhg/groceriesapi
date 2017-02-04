@@ -26,7 +26,7 @@ class ListsResourceHandler
         $data = ['error' => 'requires parameters month and year'];
 
         $month = filter_var($request->query->get('month'), FILTER_SANITIZE_STRING);
-        $year  = filter_var($request->query->get('year'),  FILTER_SANITIZE_STRING);
+        $year  = filter_var($request->query->get('year' ), FILTER_SANITIZE_STRING);
 
         if ($month && $year) {
             $status = 200;

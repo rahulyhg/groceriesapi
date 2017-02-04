@@ -32,12 +32,12 @@ class RequestAuthentication
         try {
             $token = $this->parser->parse($request->headers->get('Authorization'));
 
-            if ($this->authorize($token))
+            if ($this->authorize($token)) {
                 $request->request->set('uid', $token->getClaim('uid'));
-            else
+            } else {
                 return $this->unAuthorized();
-
-        } catch(Exception $exception) {
+            }
+        } catch (Exception $exception) {
             error_log('JWT parse error: ' . $exception->getMessage(), E_USER_ERROR);
             return $this->unAuthorized();
         }
