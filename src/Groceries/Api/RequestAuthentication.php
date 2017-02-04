@@ -38,7 +38,7 @@ class RequestAuthentication
                 return $this->unAuthorized();
             }
         } catch (Exception $exception) {
-            error_log('JWT parse error: ' . $exception->getMessage(), E_USER_ERROR);
+            error_log('JWT parse error: ' . $exception->getMessage(), E_NOTICE);
             return $this->unAuthorized();
         }
     }
