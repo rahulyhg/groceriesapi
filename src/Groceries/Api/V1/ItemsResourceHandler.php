@@ -6,17 +6,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use Groceries\Items\DataAccess;
-use Groceries\Api\UuidGenerator;
+use Groceries\Api\IDGenerator;
 
 class ItemsResourceHandler
 {
     private $dataAccess;
-    private $uuidGenerator;
+    private $idGenerator;
 
-    public function __construct(DataAccess $dataAccess, UuidGenerator $uuidGenerator)
+    public function __construct(DataAccess $dataAccess, IDGenerator $idGenerator)
     {
-        $this->dataAccess = $dataAccess;
-        $this->uuidGenerator = $uuidGenerator;
+        $this->dataAccess  = $dataAccess;
+        $this->idGenerator = $idGenerator;
     }
 
     public function get(Request $request)
@@ -42,7 +42,7 @@ class ItemsResourceHandler
             'list'        => filter_var($request->request->get('list'       ), FILTER_SANITIZE_STRING),
         ];
 
-        $data['id'] = $this->uuidGenerator->generate();
+        $data['id'] = $this->idGenerator->generate();
         $this->dataAccess->createItem($data);
 
         return new Response(serialize($data), 201);

@@ -4,7 +4,7 @@ namespace Groceries\Api;
 
 use Ramsey\Uuid\Uuid;
 
-class UuidGenerator
+class IDGenerator
 {
     public function generate() : string
     {

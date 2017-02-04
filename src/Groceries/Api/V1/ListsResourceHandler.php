@@ -6,18 +6,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use Groceries\Lists\DataAccess;
-use Groceries\Api\UuidGenerator;
+use Groceries\Api\IDGenerator;
 
 class ListsResourceHandler
 {
     private $dataAccess;
 
-    private $uuidGenerator;
+    private $idGenerator;
 
-    public function __construct(DataAccess $dataAccess, UuidGenerator $uuidGenerator)
+    public function __construct(DataAccess $dataAccess, IDGenerator $idGenerator)
     {
-        $this->dataAccess = $dataAccess;
-        $this->uuidGenerator = $uuidGenerator;
+        $this->dataAccess  = $dataAccess;
+        $this->idGenerator = $idGenerator;
     }
 
     public function get(Request $request)
@@ -45,7 +45,7 @@ class ListsResourceHandler
 
         if (preg_match('#^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$#', $date)) {
             $status = 201;
-            $data = ['id' => $this->uuidGenerator->generate(), 'date' => $date];
+            $data = ['id' => $this->idGenerator->generate(), 'date' => $date];
 
             $this->dataAccess->createList($data);
         }

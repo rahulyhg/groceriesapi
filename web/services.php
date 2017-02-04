@@ -25,8 +25,8 @@ $app['token.generator'] = function ($app) {
                                             getenv('JWT_KEY'), getenv('JWT_ISSUER'), getenv('JWT_AUDIENCE'));
 };
 
-$app['uuid.generator'] = function ($app) {
-    return new Groceries\Api\UuidGenerator();
+$app['id.generator'] = function ($app) {
+    return new Groceries\Api\IDGenerator();
 };
 
 $app['access.control'] = function ($app) {
@@ -66,9 +66,9 @@ $app['token.resource.handler.v1'] = function ($app) {
 };
 
 $app['lists.resource.handler.v1'] = function ($app) {
-    return new Groceries\Api\V1\ListsResourceHandler($app['lists.data.access'], $app['uuid.generator']);
+    return new Groceries\Api\V1\ListsResourceHandler($app['lists.data.access'], $app['id.generator']);
 };
 
 $app['items.resource.handler.v1'] = function ($app) {
-    return new Groceries\Api\V1\ItemsResourceHandler($app['items.data.access'], $app['uuid.generator']);
+    return new Groceries\Api\V1\ItemsResourceHandler($app['items.data.access'], $app['id.generator']);
 };
