@@ -1,5 +1,7 @@
 <?php
 
+require __DIR__ . '/envcheck.php';
+
 $app['db.connection'] = function () {
     $connection = new PDO(getenv('DATABASE_DSN'), getenv('DATABASE_USER'), getenv('DATABASE_PASS'));
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
