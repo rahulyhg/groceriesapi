@@ -33,7 +33,7 @@ class RequestAuthentication
             $token = $this->parser->parse($request->headers->get('Authorization'));
 
             if ($this->authorize($token))
-                $request->request->set('userid', $token->getClaim('uid'));
+                $request->request->set('uid', $token->getClaim('uid'));
             else
                 return $this->unAuthorized();
 
